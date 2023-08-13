@@ -46,6 +46,29 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    let prevScrollPos = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      const currentHeaderElement = ref.current;
+
+      if (!currentHeaderElement) {
+        return;
+      }
+
+      if (prevScrollPos > currentScrollPos) {
+        currentHeaderElement.style.transform = "translateY(0)";
+      } else {
+        currentHeaderElement.style.transform = "translateY(-200px)";
+        prevScrollPos = currentScrollPos;
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <Box
       position="fixed"
@@ -57,6 +80,7 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      ref={ref}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
