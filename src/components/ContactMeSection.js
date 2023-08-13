@@ -39,9 +39,9 @@ const LandingSection = () => {
         .max(25, "Too Long!")
         .required("Required!"),
       email: Yup.string().email("Invalid Email").required("Required"),
-      comment: Yup.string().required(
-        "Please provide more info on your inquiry!"
-      ),
+      comment: Yup.string()
+        .min(25, "Please enter a message longer than 25 characters.")
+        .required("Please provide more info on your inquiry!"),
     }),
   });
 
